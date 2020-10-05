@@ -1,6 +1,6 @@
-# Boilerplate for react / redux / typescript
+# RPG Battle Simulator
 
-This is a boiletplate repo for standalone apps that can also be used as a microfrontend
+This is an RPG battle simulator!
 
 ## Installation
 
@@ -19,5 +19,4 @@ I use standardjs as my styleguide
 - Typescript
 - Redux
 - Redux Saga
-- Single Spa
 - Styled Components
