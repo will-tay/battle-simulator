@@ -1,0 +1,60 @@
+{
+  "extends": [
+    "standard",
+    "plugin:react/recommended",
+    "plugin:@typescript-eslint/eslint-recommended",
+    "plugin:@typescript-eslint/recommended",
+    "plugin:jest/recommended"
+  ],
+  "plugins": [
+    "@typescript-eslint",
+    "react-hooks"
+  ],
+  "parser": "@typescript-eslint/parser",
+  "settings": {
+    "react": {
+      "version": "detect"
+    }
+  },
+  "rules": {
+    "@typescript-eslint/no-use-before-define": "off",
+    "@typescript-eslint/no-explicit-any": "off",
+    "@typescript-eslint/member-delimiter-style": ["error", {
+      "multiline": {
+        "delimiter": "none",
+        "requireLast": false
+      },
+      "singleline": {
+        "delimiter": "comma",
+        "requireLast": false
+      }
+    }],
+    "@typescript-eslint/indent": [2, 2],
+    "@typescript-eslint/no-empty-function:": [0],
+    "@typescript-eslint/explicit-function-return-type": [0],
+    "@typescript-eslint/interface-name-prefix": [2, {
+      "prefixWithI": "always"
+    }],
+    "@typescript-eslint/no-unused-vars": [2],
+    "@typescript-eslint/no-empty-function": [0],
+    "node/no-unsupported-features/es-syntax": "off",
+    "import/no-unresolved": [0],
+    "semi": [2, "never"],
+    "comma-dangle": [2, "never"],
+    "indent": [2, 2, { "SwitchCase": 1 }],
+    "jsx-quotes": [2, "prefer-single"],
+    "react/prop-types": [0],
+    "no-new": [0],
+    "eol-last": [2, "always"],
+    "generator-star-spacing": [0],
+    "space-before-function-paren": [0],
+    "no-unneeded-ternary": [0], // remove-me This one is disabled due to sonar error, need to chnge sonar config
+    "react-hooks/rules-of-hooks": "error",
+    "react-hooks/exhaustive-deps": "warn"
+  },
+  "env": {
+    "browser": true,
+    "node": true,
+    "jest": true
+  }
+}
