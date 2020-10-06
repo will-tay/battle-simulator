@@ -1,6 +1,6 @@
 enum KEYS {
-  USERS = 'USERS',
-  LOCATIONS = 'LOCATIONS',
+  PLAYERS = 'PLAYERS',
+  COMBAT = 'COMBAT'
 }
 
 export default KEYS

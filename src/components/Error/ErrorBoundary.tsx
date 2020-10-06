@@ -3,7 +3,7 @@ import styled from 'styled-components'
 import { configureStore, getDefaultMiddleware, ConfigureStoreOptions } from '@reduxjs/toolkit'
 import createSagaMiddleware from 'redux-saga'
 import { Provider } from 'react-redux'
-import { Typography } from 'bdx-af-ui/core'
+import { Typography } from '@material-ui/core'
 
 interface IErrorBoundaryProps {
   children: React.ReactNode
