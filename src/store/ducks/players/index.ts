@@ -24,14 +24,14 @@ const initialState = {
       id: 1,
       maxHp: 100,
       isMonster: false,
-      name: 'player',
+      name: 'Player',
       img: humanImg
     },
     2: {
       id: 2,
       maxHp: 100,
       isMonster: true,
-      name: 'monster',
+      name: 'Basilisk',
       img: monsterImg
     }
   },

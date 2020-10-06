@@ -5,6 +5,7 @@ export interface ICombatState {
   hitPoints: { [key: string]: number }
   playerRolls: { [key: string]: number[] }
   gameOver: IGameOver
+  lastCombatAction: string
 }
 
 export interface IGameOver {
@@ -31,11 +32,17 @@ export interface ISetGameOver {
   playerWon: boolean
 }
 
+export interface ISetLastCombatAction {
+  combatAction: string
+}
+
 export const incrementCombatRound: ActionCreatorWithoutPayload = createAction('incrementCombatRound')
 export const initiateCombatRound: ActionCreatorWithPayload<IInitiateCombatRound> = createAction('initiateCombatRound')
 export const setLastPlayerRoll: ActionCreatorWithPayload<ISetLastPlayerRoll> = createAction('setLastPlayerRoll')
 export const damagePlayer: ActionCreatorWithPayload<IDamagePlayer> = createAction('damagePlayer')
 export const setGameOver: ActionCreatorWithPayload<ISetGameOver> = createAction('setGameOver')
+export const setLastCombatAction: ActionCreatorWithPayload<ISetLastCombatAction> = createAction('setLastCombatAction')
+export const resetGame: ActionCreatorWithoutPayload = createAction('resetGame')
 
 const initialState: ICombatState = {
   hitPoints: {
@@ -50,7 +57,8 @@ const initialState: ICombatState = {
   gameOver: {
     isOver: false,
     playerWon: null
-  }
+  },
+  lastCombatAction: null
 }
 
 const reducer = createReducer(initialState, {
@@ -65,6 +73,16 @@ const reducer = createReducer(initialState, {
   },
   [setGameOver.type]: (state, { payload: { playerWon } }) => {
     state.gameOver = { isOver: true, playerWon }
+  },
+  [setLastCombatAction.type]: (state, { payload: { combatAction } }) => {
+    state.lastCombatAction = combatAction
+  },
+  [resetGame.type]: (state) => {
+    state.hitPoints = initialState.hitPoints
+    state.combatRound = initialState.combatRound
+    state.playerRolls = initialState.playerRolls
+    state.gameOver = initialState.gameOver
+    state.lastCombatAction = initialState.lastCombatAction
   }
 })
 

@@ -2,7 +2,7 @@ import { PayloadAction } from '@reduxjs/toolkit'
 import { put, all, takeLatest, select } from 'redux-saga/effects'
 
 import { getPlayerIds, getPlayerById, IPlayer } from '../players/'
-import { setLastPlayerRoll, initiateCombatRound, IInitiateCombatRound, damagePlayer, setGameOver } from './index'
+import { setLastPlayerRoll, setLastCombatAction, initiateCombatRound, IInitiateCombatRound, damagePlayer, setGameOver } from './index'
 import { getCombatRound, getCombatRoundRolls, getHitpointsByPlayerId } from './selectors'
 
 export function* playerRollsSaga() {
@@ -21,19 +21,24 @@ export function* combatRoundSaga(action: PayloadAction<IInitiateCombatRound>) {
   const highestRoll = sortedRolls[sortedRolls.length - 1]
   const lowestRoll = sortedRolls[0]
   if (highestRoll.rolls !== lowestRoll.rolls) {
-    const damage = (highestRoll.rolls - lowestRoll.rolls) + 50
-    const [player, hitpoints]: ([IPlayer, number]) = yield all([
+    const damage = (highestRoll.rolls - lowestRoll.rolls) + 20
+    const [lowestPlayer, highestPlayer, hitpoints]: ([IPlayer, IPlayer, number]) = yield all([
       select(getPlayerById(lowestRoll.playerId)),
+      select(getPlayerById(highestRoll.playerId)),
       select(getHitpointsByPlayerId(lowestRoll.playerId))
     ])
     if (hitpoints - damage < 1) {
-      yield put(setGameOver({ playerWon: player.isMonster }))
+      yield put(setGameOver({ playerWon: lowestPlayer.isMonster }))
     }
     yield put(damagePlayer({ playerId: lowestRoll.playerId, damage }))
+    const combatAction = `${getPlayerName(highestPlayer)} hit ${getPlayerName(lowestPlayer)} for ${damage} damage!`
+    yield put(setLastCombatAction({ combatAction }))
   } else {
-    console.log('NOBODY GOT HURT')
+    yield put(setLastCombatAction({ combatAction: 'Attack blocked!' }))
   }
 }
+
+const getPlayerName = (player: IPlayer) => player.isMonster ? player.name : 'you'
 
 export default function* () {
   yield takeLatest(setLastPlayerRoll.type, playerRollsSaga)
