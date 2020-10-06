@@ -1,15 +1,36 @@
 import React, { FunctionComponent } from 'react'
 import { Button } from '@material-ui/core'
+import { connect } from 'react-redux'
+import { bindActionCreators } from '@reduxjs/toolkit'
 
-export const AttackButton: FunctionComponent = () => {
+import { incrementCombatRound, getIsOver } from '../../store/ducks/combat'
+import { IRootState } from '../../store/rootReducer'
+
+interface IAttackButton {
+  incrementCombatRound: typeof incrementCombatRound
+  isGameOver: boolean
+}
+
+export const AttackButton: FunctionComponent<IAttackButton> = ({ incrementCombatRound, isGameOver }) => {
+  const handleClick = () => incrementCombatRound()
   return (
     <Button
       color={'primary'}
+      disabled={isGameOver}
+      onClick={handleClick}
       variant={'contained'}
     >
-      Attack!
+      { isGameOver ? 'Game Over' : 'Attack!' }
     </Button>
   )
 }
 
-export default AttackButton
+const mapStateToProps = (state: IRootState) => ({
+  isGameOver: getIsOver(state)
+})
+
+const mapDispatchToProps = (dispatch: any) => bindActionCreators({
+  incrementCombatRound
+}, dispatch)
+
+export default connect(mapStateToProps, mapDispatchToProps)(AttackButton)

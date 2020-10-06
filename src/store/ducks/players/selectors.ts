@@ -10,11 +10,6 @@ export const getPlayerById = (id: string) => createSelector(
   (state) => state.playersById[id]
 )
 
-export const getPlayerHitpointsById = (id: string) => createSelector(
-  playersSelector,
-  (state) => state.hitPoints[id]
-)
-
 export const getAllPlayers = createSelector(
   playersSelector,
   (state) => state.playersById

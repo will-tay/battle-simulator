@@ -16,7 +16,6 @@ export interface IPlayersById {
 export interface IPlayersState {
   playersById: IPlayersById
   listOfIds: string[]
-  hitPoints: { [key: string]: number }
 }
 
 const initialState = {
@@ -35,10 +34,6 @@ const initialState = {
       name: 'monster',
       img: monsterImg
     }
-  },
-  hitPoints: {
-    1: 100,
-    2: 100
   },
   listOfIds: ['1', '2']
 }

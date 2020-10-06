@@ -6,6 +6,7 @@
   "scripts": {
     "build": "cross-env NODE_ENV=production webpack",
     "lint": "eslint -c ./eslint/main.json --ext .ts --ext .tsx ./src/",
+    "lint-fix": "eslint -c ./eslint/main.json --ext .ts --ext .tsx ./src/ --fix",
     "test": "jest --coverage",
     "start-dev": "cross-env NODE_ENV=development webpack-dev-server --open --port 8890 --hot"
   },

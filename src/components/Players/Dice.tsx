@@ -1,38 +1,56 @@
-import React, { FunctionComponent } from 'react'
-import DiceRoller from 'react-dice-roll'
-import { Box } from '@material-ui/core'
-import styled from 'styled-components'
+import React, { FunctionComponent, useEffect, useState } from 'react'
+import { Box, Typography } from '@material-ui/core'
+import { connect } from 'react-redux'
 
-const DiceContainer = styled(Box)`
-  & ._3dbox ._3dface {
-    box-shadow: none;
-  }
-  & button:last-child {
-    margin-top: 1rem;
-  }
-`
+import { IRootState } from '../../store/rootReducer'
+import { getCombatRound, setLastPlayerRoll } from '../../store/ducks/combat'
+import { bindActionCreators } from '@reduxjs/toolkit'
 
-export const Dice: FunctionComponent = () => {
-  const rollDoneCallback = (num: number) => {
-    console.log(num)
+interface IDice {
+  playerId: string
+  combatRound: number
+  setLastPlayerRoll: typeof setLastPlayerRoll
+}
+
+export const Dice: FunctionComponent<IDice> = ({ combatRound, playerId, setLastPlayerRoll }) => {
+  const [diceOne, setDiceOne] = useState(0)
+  const [diceTwo, setDiceTwo] = useState(0)
+  useEffect(() => {
+    setDiceOne(0)
+    setDiceTwo(0)
+    if (combatRound > -1) rollDie()
+  }, [combatRound])
+  const rollDie = () => {
+    const firstDie = rollSixSidedDie()
+    const secondDie = rollSixSidedDie()
+    setDiceOne(firstDie)
+    setDiceTwo(secondDie)
+    setLastPlayerRoll({ playerId, roll: (firstDie + secondDie) })
   }
   return (
-    <DiceContainer
+    <Box
       display={'flex'}
       justifyContent={'center'}
       alignItems={'center'}
       flexDirection={'column'}
     >
-      <DiceRoller
-        onRoll={rollDoneCallback}
-        size={80}
-      />
-      <DiceRoller
-        onRoll={rollDoneCallback}
-        size={80}
-      />
-    </DiceContainer>
+      <Typography>Dice one is {diceOne}</Typography>
+      <Typography>Dice two is {diceTwo}</Typography>
+      { diceOne + diceTwo > 0 &&
+        <Typography>Total is <strong>{ diceOne + diceTwo }</strong></Typography>
+      }
+    </Box>
   )
 }
 
-export default Dice
+const rollSixSidedDie = () => Math.floor(Math.random() * ((6 - 1) + 1) + 1)
+
+const mapStateToProps = (state: IRootState) => ({
+  combatRound: getCombatRound(state)
+})
+
+const mapDispatchToProps = (dispatch: any) => bindActionCreators({
+  setLastPlayerRoll
+}, dispatch)
+
+export default connect(mapStateToProps, mapDispatchToProps)(Dice)

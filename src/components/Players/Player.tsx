@@ -5,7 +5,8 @@ import { connect } from 'react-redux'
 
 import { IRootState } from '../../store/rootReducer'
 import { Dice, HealthBar } from './'
-import { IPlayer, getPlayerHitpointsById, getPlayerById } from '../../store/ducks/players'
+import { IPlayer, getPlayerById } from '../../store/ducks/players'
+import { getHitpointsByPlayerId } from '../../store/ducks/combat'
 
 const Img = styled('img')({
   maxHeight: '400px',
@@ -40,7 +41,9 @@ export const Player: FunctionComponent<IPlayerComp> = ({ player, currentHitPoint
         alignItems={'center'}
       >
         <HealthBar value={currentHitPoints} />
-        <Dice />
+        <Dice
+          playerId={player.id}
+        />
       </Box>
     </Box>
   </>
@@ -48,7 +51,7 @@ export const Player: FunctionComponent<IPlayerComp> = ({ player, currentHitPoint
 
 const mapStateToProps = (state: IRootState, props: IPlayerComp) => ({
   player: getPlayerById(props.id)(state),
-  currentHitPoints: getPlayerHitpointsById(props.id)(state)
+  currentHitPoints: getHitpointsByPlayerId(props.id)(state)
 })
 
 export default connect(mapStateToProps)(Player)
