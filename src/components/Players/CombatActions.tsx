@@ -29,8 +29,8 @@ const CombatActions: FunctionComponent<ICombatActions> = ({ lastCombatAction }) 
           color={'white'}
           position={'absolute'}
           p={'1rem'}
-          top={`-${randomNumberFromRange(200, 300)}px`}
-          left={`${randomNumberFromRange(200, 400)}px`}
+          top={`-${randomNumberFromRange(400, 600)}%`}
+          left={`${randomNumberFromRange(25, 65)}%`}
         >
           <Typography>{lastCombatAction}</Typography>
         </Box>
