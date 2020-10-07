@@ -5,7 +5,7 @@ import { connect } from 'react-redux'
 import { IRootState } from '../store/rootReducer'
 import { Player, CombatActions } from './Players'
 import { getPlayerIds } from '../store/ducks/players'
-import { GameOver } from './GameOver'
+import GameOver from './GameOver'
 
 interface IMainView {
   playerIds: string[]
