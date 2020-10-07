@@ -32,12 +32,12 @@ export const HealthBar: FunctionComponent<IHealthBar> = ({ value }) => {
           display='flex'
           alignItems='center'
           justifyContent='center'
-          >
+        >
           { isDead
             ? <Fade
               in={isDead}
               timeout={2000}
-              ><DeathImage src={skullImg} /></Fade>
+            ><DeathImage src={skullImg} /></Fade>
             : <Typography variant='caption' component='div' color='textSecondary'>{`${Math.round(value)}HP`}</Typography>
           }
         </Box>
