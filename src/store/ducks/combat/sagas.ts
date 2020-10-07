@@ -38,7 +38,7 @@ export function* combatRoundSaga(action: PayloadAction<IInitiateCombatRound>) {
   }
 }
 
-const getPlayerName = (player: IPlayer) => player.isMonster ? player.name : 'you'
+const getPlayerName = (player: IPlayer) => player.isMonster ? player.name : 'You'
 
 export default function* () {
   yield takeLatest(setLastPlayerRoll.type, playerRollsSaga)

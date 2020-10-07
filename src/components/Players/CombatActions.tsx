@@ -4,7 +4,7 @@ import { Box, Typography } from '@material-ui/core'
 import styled from 'styled-components'
 
 import { IRootState } from '../../store/rootReducer'
-import { getLastCombatAction } from '../../store/ducks/combat'
+import { getLastCombatAction, getIsOver } from '../../store/ducks/combat'
 import { AttackButton } from '../Buttons'
 import { randomNumberFromRange } from '../../utils/number'
 
@@ -15,17 +15,22 @@ const ActionContainer = styled.div`
   position: relative;
 `
 
+const ActionText = styled(Box)`
+  user-select: none;
+`
+
 interface ICombatActions {
   lastCombatAction: string
+  gameOver: boolean
 }
 
-const CombatActions: FunctionComponent<ICombatActions> = ({ lastCombatAction }) => {
+const CombatActions: FunctionComponent<ICombatActions> = ({ lastCombatAction, gameOver }) => {
   return (
     <ActionContainer>
-      { lastCombatAction &&
-        <Box
-          bgcolor={'primary.main'}
-          boxShadow={1}
+      { lastCombatAction && !gameOver &&
+        <ActionText
+          bgcolor={'secondary.dark'}
+          boxShadow={4}
           color={'white'}
           position={'absolute'}
           p={'1rem'}
@@ -33,7 +38,7 @@ const CombatActions: FunctionComponent<ICombatActions> = ({ lastCombatAction }) 
           left={`${randomNumberFromRange(25, 65)}%`}
         >
           <Typography>{lastCombatAction}</Typography>
-        </Box>
+        </ActionText>
       }
       <AttackButton />
     </ActionContainer>
@@ -41,7 +46,8 @@ const CombatActions: FunctionComponent<ICombatActions> = ({ lastCombatAction }) 
 }
 
 const mapStateToProps = (state: IRootState) => ({
-  lastCombatAction: getLastCombatAction(state)
+  lastCombatAction: getLastCombatAction(state),
+  gameOver: getIsOver(state)
 })
 
 export default connect(mapStateToProps)(CombatActions)
