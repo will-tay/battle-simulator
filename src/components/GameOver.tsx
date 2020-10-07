@@ -12,6 +12,10 @@ interface IGameOverComp {
   resetGame: typeof resetGame
 }
 
+interface IGameOverText {
+  playerWon: boolean
+}
+
 const GameOverlay = styled.div`
   position: fixed;
   top: calc(50% - 100px);
@@ -30,9 +34,9 @@ const GameOverlay = styled.div`
   flex-direction: column;
 `
 
-const Text = styled.p`
+const Text = styled.p<IGameOverText>`
   font-family: 'OptimusPrincepsSemiBold';
-  color: red;
+  color: ${({ playerWon }) => playerWon ? 'green' : 'red'};
   user-select: none;
 `
 
@@ -44,14 +48,23 @@ export const GameOver: FunctionComponent<IGameOverComp> = ({ gameOver, resetGame
         timeout={2000}
       >
         <GameOverlay>
-          <Text>{gameOver.playerWon ? 'YOU WIN!' : 'YOU DIED'}</Text>
-          <Button
-            color={'secondary'}
-            variant={'contained'}
-            onClick={resetGame}
+          <Text
+            playerWon={gameOver.playerWon}
           >
-            Play Again
-          </Button>
+            {gameOver.playerWon ? 'YOU WIN' : 'GAME OVER'}!
+          </Text>
+          <Fade
+            in={gameOver.isOver}
+            timeout={4000}
+          >
+            <Button
+              color={gameOver.playerWon ? 'primary' : 'secondary'}
+              variant={'contained'}
+              onClick={resetGame}
+            >
+              Play Again
+            </Button>
+          </Fade>
         </GameOverlay>
       </Fade>
     }
