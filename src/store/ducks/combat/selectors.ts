@@ -29,3 +29,8 @@ export const getGameOver = createSelector(
   combatSelector,
   (state) => state.gameOver
 )
+
+export const getLastCombatAction = createSelector(
+  combatSelector,
+  (state) => state.lastCombatAction
+)

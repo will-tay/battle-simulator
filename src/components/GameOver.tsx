@@ -1,10 +1,15 @@
 import React, { FunctionComponent } from 'react'
 import styled from 'styled-components'
-import { Fade } from '@material-ui/core'
+import { Button, Fade } from '@material-ui/core'
+import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux'
 
-interface IGameOver {
-  isOver: boolean
-  text: string
+import { IRootState } from '../store/rootReducer'
+import { resetGame, getGameOver, IGameOver } from '../store/ducks/combat'
+
+interface IGameOverComp {
+  gameOver: IGameOver
+  resetGame: typeof resetGame
 }
 
 const GameOverlay = styled.div`
@@ -22,6 +27,7 @@ const GameOverlay = styled.div`
   justify-content: center;
   align-items: center;
   font-size: 8rem;
+  flex-direction: column;
 `
 
 const Text = styled.p`
@@ -30,17 +36,31 @@ const Text = styled.p`
   user-select: none;
 `
 
-export const GameOver: FunctionComponent<IGameOver> = ({ isOver, text }) => (
+export const GameOver: FunctionComponent<IGameOverComp> = ({ gameOver, resetGame }) => (
   <>
     <Fade
-      in={isOver}
+      in={gameOver.isOver}
       timeout={1000}
     >
       <GameOverlay>
-        <Text>{text}</Text>
+        <Text>{gameOver.playerWon ? 'YOU WIN!' : 'YOU DIED'}</Text>
+        <Button
+          color={'secondary'}
+          variant={'contained'}
+          onClick={resetGame}
+        >
+          Play Again
+        </Button>
       </GameOverlay>
     </Fade>
   </>
 )
 
-export default GameOver
+const mapStateToProps = (state: IRootState) => ({
+  gameOver: getGameOver(state)
+})
+const mapDispatchToProps = (dispatch: any) => bindActionCreators({
+  resetGame
+}, dispatch)
+
+export default connect(mapStateToProps, mapDispatchToProps)(GameOver)

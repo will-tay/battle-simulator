@@ -3,18 +3,15 @@ import { Box, Container, Grid, Typography } from '@material-ui/core'
 import { connect } from 'react-redux'
 
 import { IRootState } from '../store/rootReducer'
-import { Player } from './Players'
-import { AttackButton } from './Buttons'
+import { Player, CombatActions } from './Players'
 import { getPlayerIds } from '../store/ducks/players'
-import { getGameOver, IGameOver } from '../store/ducks/combat'
-import { GameOver } from './GameOver'
+import GameOver from './GameOver'
 
 interface IMainView {
   playerIds: string[]
-  gameOver: IGameOver
 }
 
-const MainView: FunctionComponent<IMainView> = ({ playerIds, gameOver }) => (
+const MainView: FunctionComponent<IMainView> = ({ playerIds }) => (
   <Box
     display={'flex'}
     alignItems={'center'}
@@ -29,7 +26,11 @@ const MainView: FunctionComponent<IMainView> = ({ playerIds, gameOver }) => (
       >
         BATTLE SIMULATOR
       </Typography>
-      <Grid container justify={'center'}>
+      <Grid
+        container
+        justify={'center'}
+        spacing={6}
+      >
         {playerIds.map(playerId => (
           <Grid
             key={`player_${playerId}`}
@@ -40,21 +41,20 @@ const MainView: FunctionComponent<IMainView> = ({ playerIds, gameOver }) => (
             <Player id={playerId} />
           </Grid>
         ))}
-        <Grid item>
-          <AttackButton />
+        <Grid
+          item
+          xs={12}
+        >
+          <CombatActions />
         </Grid>
       </Grid>
-      <GameOver
-        isOver={gameOver.isOver}
-        text={gameOver.playerWon ? 'YOU WIN!' : 'YOU DIED'}
-      />
+      <GameOver />
     </Container>
   </Box>
 )
 
 const mapStateToProps = (state: IRootState) => ({
-  playerIds: getPlayerIds(state),
-  gameOver: getGameOver(state)
+  playerIds: getPlayerIds(state)
 })
 
 export default connect(mapStateToProps)(MainView)
