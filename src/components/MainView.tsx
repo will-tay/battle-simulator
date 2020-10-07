@@ -1,6 +1,7 @@
 import React, { FunctionComponent } from 'react'
 import { Box, Container, Grid, Typography } from '@material-ui/core'
 import { connect } from 'react-redux'
+import styled from 'styled-components'
 
 import { IRootState } from '../store/rootReducer'
 import { Player, CombatActions } from './Players'
@@ -11,6 +12,11 @@ interface IMainView {
   playerIds: string[]
 }
 
+const TitleText = styled(Typography)`
+  font-family: 'OptimusPrincepsSemiBold';
+  margin-bottom: 4rem;
+`
+
 const MainView: FunctionComponent<IMainView> = ({ playerIds }) => (
   <Box
     display={'flex'}
@@ -18,14 +24,14 @@ const MainView: FunctionComponent<IMainView> = ({ playerIds }) => (
     height={'100vh'}
   >
     <Container
-      maxWidth={'md'}
+      maxWidth={'lg'}
     >
-      <Typography
+      <TitleText
         align={'center'}
         variant={'h1'}
       >
         BATTLE SIMULATOR
-      </Typography>
+      </TitleText>
       <Grid
         container
         justify={'center'}

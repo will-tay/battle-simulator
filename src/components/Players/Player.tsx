@@ -29,6 +29,7 @@ export const Player: FunctionComponent<IPlayerComp> = ({ player, currentHitPoint
     <Box
       display={'flex'}
       flexDirection={player.isMonster ? 'row' : 'row-reverse'}
+      justifyContent={'center'}
     >
       <CharacterContainer>
         <Typography align={player.isMonster ? 'right' : 'left'}>{name}</Typography>

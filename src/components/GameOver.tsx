@@ -38,21 +38,23 @@ const Text = styled.p`
 
 export const GameOver: FunctionComponent<IGameOverComp> = ({ gameOver, resetGame }) => (
   <>
-    <Fade
-      in={gameOver.isOver}
-      timeout={1000}
-    >
-      <GameOverlay>
-        <Text>{gameOver.playerWon ? 'YOU WIN!' : 'YOU DIED'}</Text>
-        <Button
-          color={'secondary'}
-          variant={'contained'}
-          onClick={resetGame}
-        >
-          Play Again
-        </Button>
-      </GameOverlay>
-    </Fade>
+    {gameOver.isOver &&
+      <Fade
+        in={gameOver.isOver}
+        timeout={2000}
+      >
+        <GameOverlay>
+          <Text>{gameOver.playerWon ? 'YOU WIN!' : 'YOU DIED'}</Text>
+          <Button
+            color={'secondary'}
+            variant={'contained'}
+            onClick={resetGame}
+          >
+            Play Again
+          </Button>
+        </GameOverlay>
+      </Fade>
+    }
   </>
 )
 
