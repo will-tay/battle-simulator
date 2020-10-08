@@ -29,7 +29,7 @@ const PlayerHealthBar = styled(HealthBar)`
   margin-bottom: auto;
 `
 
-export const Player: FunctionComponent<IPlayerComp> = ({ player, currentHitPoints = 100 }) => (
+export const Player: FunctionComponent<IPlayerComp> = ({ player, currentHitPoints }) => (
   <>
     <Box
       display={'flex'}
