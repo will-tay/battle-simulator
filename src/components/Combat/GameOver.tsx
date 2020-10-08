@@ -4,8 +4,8 @@ import { Button, Fade } from '@material-ui/core'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 
-import { IRootState } from '../store/rootReducer'
-import { resetGame, getGameOver, IGameOver } from '../store/ducks/combat'
+import { IRootState } from '../../store/rootReducer'
+import { resetGame, getGameOver, IGameOver } from '../../store/ducks/combat'
 
 interface IGameOverComp {
   gameOver: IGameOver
@@ -40,36 +40,43 @@ const Text = styled.p<IGameOverText>`
   user-select: none;
 `
 
-export const GameOver: FunctionComponent<IGameOverComp> = ({ gameOver, resetGame }) => (
-  <>
-    {gameOver.isOver &&
-      <Fade
-        in={gameOver.isOver}
-        timeout={2000}
-      >
-        <GameOverlay>
-          <Text
-            playerWon={gameOver.playerWon}
-          >
-            {gameOver.playerWon ? 'YOU WIN' : 'GAME OVER'}!
-          </Text>
-          <Fade
-            in={gameOver.isOver}
-            timeout={4000}
-          >
-            <Button
-              color={gameOver.playerWon ? 'primary' : 'secondary'}
-              variant={'contained'}
-              onClick={resetGame}
+const PlayAgainButton = styled(Button)`
+  min-height: 40px;
+`
+
+export const GameOver: FunctionComponent<IGameOverComp> = ({ gameOver, resetGame }) => {
+  const handleResetGame = () => resetGame()
+  return (
+    <>
+      {gameOver.isOver &&
+        <Fade
+          in={gameOver.isOver}
+          timeout={2000}
+        >
+          <GameOverlay>
+            <Text
+              playerWon={gameOver.playerWon}
             >
-              Play Again
-            </Button>
-          </Fade>
-        </GameOverlay>
-      </Fade>
-    }
-  </>
-)
+              {gameOver.playerWon ? 'YOU WIN' : 'GAME OVER'}!
+            </Text>
+            <Fade
+              in={gameOver.isOver}
+              timeout={4000}
+            >
+              <PlayAgainButton
+                color={gameOver.playerWon ? 'primary' : 'secondary'}
+                variant={'contained'}
+                onClick={handleResetGame}
+              >
+                Play Again
+              </PlayAgainButton>
+            </Fade>
+          </GameOverlay>
+        </Fade>
+      }
+    </>
+  )
+}
 
 const mapStateToProps = (state: IRootState) => ({
   gameOver: getGameOver(state)

@@ -1,28 +1,33 @@
 import React, { FunctionComponent } from 'react'
 import { Box, Typography } from '@material-ui/core'
-import { styled } from '@material-ui/styles'
 import { connect } from 'react-redux'
+import styled from 'styled-components'
 
 import { IRootState } from '../../store/rootReducer'
-import { Dice, HealthBar } from './'
+import { HealthBar } from './'
+import { Dice } from '../Combat'
 import { IPlayer, getPlayerById } from '../../store/ducks/players'
 import { getHitpointsByPlayerId } from '../../store/ducks/combat'
-
-const Img = styled('img')({
-  maxHeight: '400px',
-  maxWidth: '100%'
-})
-
-const CharacterContainer = styled('div')({
-  maxHeight: '400px',
-  maxWidth: '100%'
-})
 
 interface IPlayerComp {
   id: string
   currentHitPoints?: number
   player?: IPlayer
 }
+
+const Img = styled.img`
+  max-height: 400px;
+  max-width: 100%;
+`
+
+const CharacterContainer = styled.div`
+  max-height: 400px;
+  max-width: 100%;
+`
+
+const PlayerHealthBar = styled(HealthBar)`
+  margin-bottom: auto;
+`
 
 export const Player: FunctionComponent<IPlayerComp> = ({ player, currentHitPoints = 100 }) => (
   <>
@@ -38,10 +43,10 @@ export const Player: FunctionComponent<IPlayerComp> = ({ player, currentHitPoint
       <Box
         display={'flex'}
         flexDirection={'column'}
-        justifyContent={'space-evenly'}
         alignItems={'center'}
+        minWidth={'130px'}
       >
-        <HealthBar value={currentHitPoints} />
+        <PlayerHealthBar value={currentHitPoints} />
         <Dice
           playerId={player.id}
         />

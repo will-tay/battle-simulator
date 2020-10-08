@@ -6,6 +6,7 @@ export interface ICombatState {
   playerRolls: { [key: string]: number[] }
   gameOver: IGameOver
   lastCombatAction: string
+  roundInProgress: boolean
 }
 
 export interface IGameOver {
@@ -36,7 +37,12 @@ export interface ISetLastCombatAction {
   combatAction: string
 }
 
+export interface ISetRoundInProgress {
+  roundInProgress: boolean
+}
+
 export const incrementCombatRound: ActionCreatorWithoutPayload = createAction('incrementCombatRound')
+export const setRoundInProgress: ActionCreatorWithPayload<ISetRoundInProgress> = createAction('setRoundInProgress')
 export const initiateCombatRound: ActionCreatorWithPayload<IInitiateCombatRound> = createAction('initiateCombatRound')
 export const setLastPlayerRoll: ActionCreatorWithPayload<ISetLastPlayerRoll> = createAction('setLastPlayerRoll')
 export const damagePlayer: ActionCreatorWithPayload<IDamagePlayer> = createAction('damagePlayer')
@@ -58,12 +64,16 @@ const initialState: ICombatState = {
     isOver: false,
     playerWon: null
   },
-  lastCombatAction: null
+  lastCombatAction: null,
+  roundInProgress: false
 }
 
 const reducer = createReducer(initialState, {
   [incrementCombatRound.type]: (state) => {
     state.combatRound++
+  },
+  [setRoundInProgress.type]: (state, { payload: { roundInProgress } }) => {
+    state.roundInProgress = roundInProgress
   },
   [setLastPlayerRoll.type]: (state, { payload: { playerId, roll } }) => {
     state.playerRolls[playerId].push(roll)

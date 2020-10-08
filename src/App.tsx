@@ -2,6 +2,7 @@ import React, { FunctionComponent } from 'react'
 import { ToastProvider } from 'react-toast-notifications'
 import { CssBaseline } from '@material-ui/core'
 import { ThemeProvider, createMuiTheme } from '@material-ui/core/styles'
+import { ThemeProvider as SCThemeProvider } from 'styled-components'
 import { red, deepPurple } from '@material-ui/core/colors'
 
 import createProvider from './components/Error/ErrorBoundary'
@@ -22,10 +23,12 @@ const AppProvider = createProvider(rootReducer, rootSaga)
 const App: FunctionComponent = () => (
   <ToastProvider autoDismiss>
     <ThemeProvider theme={theme}>
-      <AppProvider>
-        <CssBaseline />
-        <MainView />
-      </AppProvider>
+      <SCThemeProvider theme={theme}>
+        <AppProvider>
+          <CssBaseline />
+          <MainView />
+        </AppProvider>
+      </SCThemeProvider>
     </ThemeProvider>
   </ToastProvider>
 )
