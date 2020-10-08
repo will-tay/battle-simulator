@@ -22,6 +22,7 @@ const MainView: FunctionComponent<IMainView> = ({ playerIds }) => (
     display={'flex'}
     alignItems={'center'}
     height={'100vh'}
+    bgcolor={'#f9f9f9'}
   >
     <Container
       maxWidth={'lg'}

@@ -21,7 +21,7 @@ export function* combatRoundSaga(action: PayloadAction<IInitiateCombatRound>) {
   const highestRoll = sortedRolls[sortedRolls.length - 1]
   const lowestRoll = sortedRolls[0]
   if (highestRoll.rolls !== lowestRoll.rolls) {
-    const damage = (highestRoll.rolls - lowestRoll.rolls) + 20
+    const damage = (highestRoll.rolls - lowestRoll.rolls)
     const [lowestPlayer, highestPlayer, hitpoints]: ([IPlayer, IPlayer, number]) = yield all([
       select(getPlayerById(lowestRoll.playerId)),
       select(getPlayerById(highestRoll.playerId)),
