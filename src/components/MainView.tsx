@@ -36,7 +36,7 @@ const MainView: FunctionComponent<IMainView> = ({ playerIds }) => (
       <Grid
         container
         justify={'center'}
-        spacing={6}
+        spacing={2}
       >
         {playerIds.map(playerId => (
           <Grid

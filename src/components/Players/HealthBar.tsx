@@ -22,7 +22,11 @@ export const HealthBar: FunctionComponent<IHealthBar> = ({ value }) => {
   return (
     <>
       <Box position='relative' display='inline-flex'>
-        <HealthBarProgress variant='static' value={isDead ? 0 : value} />
+        <HealthBarProgress
+          variant='static'
+          value={isDead ? 0 : value}
+          color={value > 25 ? 'primary' : 'secondary'}
+        />
         <Box
           top={0}
           left={0}

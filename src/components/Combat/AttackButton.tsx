@@ -1,5 +1,6 @@
 import React, { FunctionComponent } from 'react'
 import { Button } from '@material-ui/core'
+import { Colorize } from '@material-ui/icons'
 import { connect } from 'react-redux'
 import { bindActionCreators } from '@reduxjs/toolkit'
 import styled from 'styled-components'
@@ -30,6 +31,9 @@ export const AttackButton: FunctionComponent<IAttackButton> = ({ incrementCombat
       disabled={isGameOver || isRoundInProgress}
       onClick={handleClick}
       variant={'contained'}
+      size={'large'}
+      startIcon={<Colorize />}
+      endIcon={<Colorize />}
     >
       { isGameOver ? 'Game Over!' : isRoundInProgress ? 'Attacking!' : 'Attack!' }
     </AttackButtonComp>
