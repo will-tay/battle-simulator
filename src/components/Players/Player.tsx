@@ -44,7 +44,7 @@ export const Player: FunctionComponent<IPlayerComp> = ({ player, currentHitPoint
         display={'flex'}
         flexDirection={'column'}
         alignItems={'center'}
-        minWidth={'130px'}
+        minWidth={'175px'}
       >
         <PlayerHealthBar value={currentHitPoints} />
         <Dice

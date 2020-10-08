@@ -23,6 +23,10 @@ const ActionTextContainer = styled(Box)`
   user-select: none;
 `
 
+const ActionText = styled(Typography)`
+  font-family: 'OptimusPrincepsSemiBold';
+`
+
 const CombatActions: FunctionComponent<ICombatActions> = ({ lastCombatAction }) => (
   <ActionContainer>
     { lastCombatAction &&
@@ -35,7 +39,7 @@ const CombatActions: FunctionComponent<ICombatActions> = ({ lastCombatAction }) 
         top={`-${randomNumberFromRange(400, 600)}%`}
         left={`${randomNumberFromRange(25, 55)}%`}
       >
-        <Typography>{lastCombatAction}</Typography>
+        <ActionText>{lastCombatAction}</ActionText>
       </ActionTextContainer>
     }
     <AttackButton />
