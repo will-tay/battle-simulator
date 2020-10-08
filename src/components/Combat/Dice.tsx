@@ -76,7 +76,7 @@ export const Dice: FunctionComponent<IDice> = ({ combatRound, playerId, setLastP
         <DiceComp value={diceOne} />
         <DiceComp value={diceTwo} />
       </Box>
-      { diceTotal > 0 &&
+      { diceTotal > 0 && combatRound > -1 &&
         <Typography>Attack total: <strong>{ diceTotal }</strong></Typography>
       }
     </Box>
