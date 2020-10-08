@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 import styled from 'styled-components'
 
 import { IRootState } from '../../store/rootReducer'
-import { HealthBar } from './'
+import { HealthBar, NamePlate } from './'
 import { Dice } from '../Combat'
 import { IPlayer, getPlayerById } from '../../store/ducks/players'
 import { getHitpointsByPlayerId } from '../../store/ducks/combat'
@@ -51,6 +51,11 @@ export const Player: FunctionComponent<IPlayerComp> = ({ player, currentHitPoint
           playerId={player.id}
         />
       </Box>
+    </Box>
+    <Box>
+      <NamePlate
+        playerName={player.name}
+      />
     </Box>
   </>
 )
