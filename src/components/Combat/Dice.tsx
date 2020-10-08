@@ -41,6 +41,10 @@ const DiceComp = styled.div<IDiceCompProps>`
   }
 `
 
+const DiceTotals = styled(Typography)`
+  font-family: 'OptimusPrincepsSemiBold';
+`
+
 export const Dice: FunctionComponent<IDice> = ({ combatRound, playerId, setLastPlayerRoll, setRoundInProgress }) => {
   const [diceOne, setDiceOne] = useState(0)
   const [diceTwo, setDiceTwo] = useState(0)
@@ -77,7 +81,19 @@ export const Dice: FunctionComponent<IDice> = ({ combatRound, playerId, setLastP
         <DiceComp value={diceTwo} />
       </Box>
       { diceTotal > 0 && combatRound > -1 &&
-        <Typography>Attack total: <strong>{ diceTotal }</strong></Typography>
+      <Box>
+        <DiceTotals
+          align={'center'}
+        >
+          Attack roll total:
+        </DiceTotals>
+        <DiceTotals
+          align={'center'}
+          variant={'h3'}
+        >
+          <strong>{ diceTotal }</strong>
+        </DiceTotals>
+      </Box>
       }
     </Box>
   )
