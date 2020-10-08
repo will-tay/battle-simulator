@@ -1,10 +1,10 @@
-import React, { FunctionComponent, useEffect, useState } from 'react'
+import React, { FunctionComponent } from 'react'
 import { connect } from 'react-redux'
 import { Box, Typography } from '@material-ui/core'
 import styled from 'styled-components'
 
 import { IRootState } from '../../store/rootReducer'
-import { getLastCombatAction, getCombatRound } from '../../store/ducks/combat'
+import { getLastCombatAction } from '../../store/ducks/combat'
 import AttackButton from './AttackButton'
 import { randomNumberFromRange } from '../../utils/number'
 
