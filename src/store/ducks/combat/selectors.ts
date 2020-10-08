@@ -34,3 +34,8 @@ export const getLastCombatAction = createSelector(
   combatSelector,
   (state) => state.lastCombatAction
 )
+
+export const getIsRoundInProgress = createSelector(
+  combatSelector,
+  (state) => state.roundInProgress
+)

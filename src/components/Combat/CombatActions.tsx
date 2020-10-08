@@ -1,12 +1,21 @@
 import React, { FunctionComponent } from 'react'
 import { connect } from 'react-redux'
 import { Box, Typography } from '@material-ui/core'
-import styled from 'styled-components'
+import styled, { css, keyframes } from 'styled-components'
 
 import { IRootState } from '../../store/rootReducer'
 import { getLastCombatAction, getIsOver } from '../../store/ducks/combat'
-import { AttackButton } from '../Buttons'
+import AttackButton from './AttackButton'
 import { randomNumberFromRange } from '../../utils/number'
+
+interface ICombatActions {
+  lastCombatAction: string
+  gameOver: boolean
+}
+
+interface IActionTextComp {
+  gameOver: boolean
+}
 
 const ActionContainer = styled.div`
   display: flex;
@@ -15,14 +24,18 @@ const ActionContainer = styled.div`
   position: relative;
 `
 
-const ActionText = styled(Box)`
-  user-select: none;
-`
+const fadeOut = () => (
+  keyframes`
+    from { opacity: 1; }
+    to { opacity: 0; }
+  `
+)
 
-interface ICombatActions {
-  lastCombatAction: string
-  gameOver: boolean
-}
+const ActionText = styled(Box)<IActionTextComp>`
+  user-select: none;
+  opacity: 1;
+  animation: ${({ gameOver }) => gameOver ? css`${fadeOut()} 0.5s linear 1` : null};
+`
 
 const CombatActions: FunctionComponent<ICombatActions> = ({ lastCombatAction, gameOver }) => {
   return (
@@ -35,7 +48,8 @@ const CombatActions: FunctionComponent<ICombatActions> = ({ lastCombatAction, ga
           position={'absolute'}
           p={'1rem'}
           top={`-${randomNumberFromRange(400, 600)}%`}
-          left={`${randomNumberFromRange(25, 65)}%`}
+          left={`${randomNumberFromRange(25, 55)}%`}
+          gameOver={gameOver}
         >
           <Typography>{lastCombatAction}</Typography>
         </ActionText>
