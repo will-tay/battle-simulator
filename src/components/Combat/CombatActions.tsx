@@ -23,26 +23,24 @@ const ActionTextContainer = styled(Box)`
   user-select: none;
 `
 
-const CombatActions: FunctionComponent<ICombatActions> = ({ lastCombatAction }) => {
-  return (
-    <ActionContainer>
-      { lastCombatAction &&
-        <ActionTextContainer
-          bgcolor={'secondary.dark'}
-          boxShadow={4}
-          color={'white'}
-          position={'absolute'}
-          p={'1rem'}
-          top={`-${randomNumberFromRange(400, 600)}%`}
-          left={`${randomNumberFromRange(25, 55)}%`}
-        >
-          <Typography>{lastCombatAction}</Typography>
-        </ActionTextContainer>
-      }
-      <AttackButton />
-    </ActionContainer>
-  )
-}
+const CombatActions: FunctionComponent<ICombatActions> = ({ lastCombatAction }) => (
+  <ActionContainer>
+    { lastCombatAction &&
+      <ActionTextContainer
+        bgcolor={'secondary.dark'}
+        boxShadow={4}
+        color={'white'}
+        position={'absolute'}
+        p={'1rem'}
+        top={`-${randomNumberFromRange(400, 600)}%`}
+        left={`${randomNumberFromRange(25, 55)}%`}
+      >
+        <Typography>{lastCombatAction}</Typography>
+      </ActionTextContainer>
+    }
+    <AttackButton />
+  </ActionContainer>
+)
 
 const mapStateToProps = (state: IRootState) => ({
   lastCombatAction: getLastCombatAction(state)
