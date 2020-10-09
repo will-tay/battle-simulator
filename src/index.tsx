@@ -11,10 +11,10 @@ if (elStandalone) {
 }
 
 const domElementGetter = () => {
-  let el = document.getElementById('mfFile')
+  let el = document.getElementById('mfBattleSimulator')
   if (!el) {
     el = document.createElement('div')
-    el.id = 'mfFile'
+    el.id = 'mfBattleSimulator'
     document.body.appendChild(el)
   }
   return el

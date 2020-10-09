@@ -22,7 +22,7 @@ const dockerDevServer = {
   // additional changes for docker and fqdn
   disableHostCheck: true,
   host: '0.0.0.0',
-  public: 'mf-file.local.asset-flow.com:443'
+  public: 'battle-simulator.local.wmt.com:443'
 }
 
 module.exports = {
